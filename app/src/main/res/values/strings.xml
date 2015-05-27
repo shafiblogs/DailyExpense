@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">DailyExpense</string>
+    <!-- common strings-->
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="network_err">An error occurred when connecting to internet. Please try again later.</string>
+</resources>
