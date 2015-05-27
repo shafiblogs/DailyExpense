@@ -299,9 +299,9 @@ public class SlideMenu extends LinearLayout implements OnClickListener {
 //        // ((TextView)
 //        // menuSlider.findViewById(R.id.tv_profileimage)).setOnClickListener(this);
 //        ((HexagonImageView) menuSlider.findViewById(R.id.profile_side)).setOnClickListener(this);
-//        ((TextView) menuSlider.findViewById(R.id.textView1)).setOnClickListener(this);
-//        ((TextView) menuSlider.findViewById(R.id.tv_notification)).setOnClickListener(this);
-//        ((TextView) menuSlider.findViewById(R.id.tv_settings)).setOnClickListener(this);
+        ((TextView) menuSlider.findViewById(R.id.tv_first)).setOnClickListener(this);
+        ((TextView) menuSlider.findViewById(R.id.tv_second)).setOnClickListener(this);
+        ((TextView) menuSlider.findViewById(R.id.tv_third)).setOnClickListener(this);
 //        ((TextView) menuSlider.findViewById(R.id.tv_language)).setOnClickListener(this);
 //        ((TextView) menuSlider.findViewById(R.id.tv_share)).setOnClickListener(this);
 //        ((TextView) menuSlider.findViewById(R.id.tv_store)).setOnClickListener(this);
@@ -452,45 +452,21 @@ public class SlideMenu extends LinearLayout implements OnClickListener {
 
     @Override
     public void onClick(View v) {
-//        if (null != v) {
-//            switch (v.getId()) {
-//                case R.id.tv_home:
-//                    selectItem(0);
-//                    break;
-//                case R.id.profile_side:
-//                    selectItem(1);
-//                    break;
-//                case R.id.textView1:
-//                    selectItem(1);
-//                    break;
-//                case R.id.tv_notification:
-//                    selectItem(2);
-//                    break;
-//                case R.id.tv_settings:
-//                    selectItem(3);
-//                    break;
-//                case R.id.tv_language:
-//                    selectItem(4);
-//                    break;
-//                case R.id.switch_language:
-//                    switchLanguage();
-//                    break;
-//                case R.id.tv_addquestion:
-//                    selectItem(5);
-//                    break;
-//                case R.id.tv_feedback:
-//                    selectItem(6);
-//                    break;
-//                case R.id.tv_share:
-//                    shareTHings();
-//                    break;
-//                case R.id.tv_store:
-//                    selectItem(7);
-//                    break;
-//                default:
-//                    break;
-//            }
-//        }
+        if (null != v) {
+            switch (v.getId()) {
+                case R.id.tv_first:
+                    selectItem(0);
+                    break;
+                case R.id.tv_second:
+                    selectItem(1);
+                    break;
+                case R.id.tv_third:
+                    selectItem(2);
+                    break;
+                default:
+                    break;
+            }
+        }
     }
 
     private void shareTHings() {

@@ -1,6 +1,7 @@
 package com.de.activity;
 
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
@@ -9,6 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.de.controller.OnFragmentResult;
+import com.de.fragment.ListFragment;
 import com.de.views.SlideMenu;
 import com.de.views.SlideMenuInterface;
 
@@ -36,7 +38,6 @@ public class HomeActivity extends ActionBarActivity implements SlideMenuInterfac
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setHomeButtonEnabled(true);
-
     }
 
     private void setupDrawer() {
@@ -62,8 +63,26 @@ public class HomeActivity extends ActionBarActivity implements SlideMenuInterfac
     }
 
     @Override
-    public void onSlideMenuItemClick(int itemId) {
+    public void onSlideMenuItemClick(int position) {
+        FragmentManager fragmentManager = getSupportFragmentManager();
 
+        switch (position) {
+            case 0:
+                fragmentManager.beginTransaction()
+                        .replace(R.id.container, ListFragment.newInstance(position + 1))
+                        .commit();
+                break;
+            case 1:
+                fragmentManager.beginTransaction()
+                        .replace(R.id.container, ListFragment.newInstance(position + 1))
+                        .commit();
+                break;
+            case 2:
+                fragmentManager.beginTransaction()
+                        .replace(R.id.container, ListFragment.newInstance(position + 1))
+                        .commit();
+                break;
+        }
     }
 
     @Override

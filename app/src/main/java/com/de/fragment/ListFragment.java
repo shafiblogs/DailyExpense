@@ -1,19 +1,20 @@
 package com.de.fragment;
 
 import android.app.Activity;
-import android.app.Fragment;
+
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
-import com.de.activity.HomeActivity;
 import com.de.activity.R;
 
 /**
  * Created by Shafi on 5/27/2015.
  */
-public class HomeFragment extends Fragment {
+public class ListFragment extends Fragment {
     /**
      * The fragment argument representing the section number for this
      * fragment.
@@ -24,21 +25,23 @@ public class HomeFragment extends Fragment {
      * Returns a new instance of this fragment for the given section
      * number.
      */
-    public static HomeFragment newInstance(int sectionNumber) {
-        HomeFragment fragment = new HomeFragment();
+    public static ListFragment newInstance(int sectionNumber) {
+        ListFragment fragment = new ListFragment();
         Bundle args = new Bundle();
         args.putInt(ARG_SECTION_NUMBER, sectionNumber);
         fragment.setArguments(args);
         return fragment;
     }
 
-    public HomeFragment() {
+    public ListFragment() {
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_home, container, false);
+        TextView tvTitle = (TextView) rootView.findViewById(R.id.tv_title);
+        tvTitle.setText("Screen" + getArguments().getInt(ARG_SECTION_NUMBER));
         return rootView;
     }
 
