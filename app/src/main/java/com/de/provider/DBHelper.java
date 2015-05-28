@@ -14,17 +14,20 @@ public class DBHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL(DBConstants.CREATE_TABLE_SYSTEMCONFIG);
+        db.execSQL(DBConstants.CREATE_TABLE_EXPENSE);
+        db.execSQL(DBConstants.CREATE_TABLE_INCOME);
         db.execSQL(DBConstants.CREATE_TABLE_ACCOUNT);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         if (oldVersion == 1 && newVersion == 2) {
-            db.execSQL(DBConstants.DROP_TABLE_SYSTEMCONFIG);
+            db.execSQL(DBConstants.DROP_TABLE_EXPENSE);
+            db.execSQL(DBConstants.DROP_TABLE_INCOME);
             db.execSQL(DBConstants.DROP_TABLE_ACCOUNT);
 
-            db.execSQL(DBConstants.CREATE_TABLE_SYSTEMCONFIG);
+            db.execSQL(DBConstants.CREATE_TABLE_EXPENSE);
+            db.execSQL(DBConstants.CREATE_TABLE_INCOME);
             db.execSQL(DBConstants.CREATE_TABLE_ACCOUNT);
 
         }

@@ -1,7 +1,13 @@
 package com.de.provider;
 
+import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+
+import com.de.dto.ExpenseDTO;
+
+import java.util.ArrayList;
 
 /**
  * Created by Shafi on 5/21/2015.
@@ -24,50 +30,45 @@ public class DataLayer {
         }
     }
 
-//    public void AddSysetmConfig(SystemConfigDTO sysDTO) {
-//        SQLiteDatabase db = _dbHelper.getWritableDatabase();
-//        try {
-//            ContentValues values = new ContentValues();
-//            values.put(DBConstants.CATEGORIES_VER, sysDTO.getCatVersion());
-//            values.put(DBConstants.FEEDBACK_EMAIL, sysDTO.getFeedbackEmail());
-//            values.put(DBConstants.FIREBALL_IP, sysDTO.getFirballIp());
-//            values.put(DBConstants.FIREBALL_PORT, sysDTO.getFirballPort());
-//            values.put(DBConstants.IS_APPMANAGERAVAILABLE, sysDTO.isAppMangaerAvail() == true ? 1 : 0);
-//            values.put(DBConstants.IS_FIREBALLAVAILABLE, sysDTO.isFirballAvail() == true ? 1 : 0);
-//            values.put(DBConstants.TIME_PERQUESTION, sysDTO.getTimePerQuestion());
-//            // To delete all values before adding
-//            db.delete(DBConstants.TABLE_SYSTEMCONFIG, "1", null);
-//            db.insert(DBConstants.TABLE_SYSTEMCONFIG, "", values);
-//        } finally {
-//            if (db != null)
-//                db.close();
-//        }
-//    }
-//
-//    public SystemConfigDTO GetSystemConfig() {
-//        SQLiteDatabase db = _dbHelper.getReadableDatabase();
-//        try {
-//            SystemConfigDTO results = null;
-//            Cursor c = db.rawQuery("select * from " + DBConstants.TABLE_SYSTEMCONFIG, null);
-//            if (c.getCount() > 0) {
-//                c.moveToFirst();
-//                do {
-//                    results = new SystemConfigDTO();
-//                    results.setCatVersion(c.getInt(c.getColumnIndex(DBConstants.CATEGORIES_VER)));
-//                    results.setFeedbackEmail(c.getString(c.getColumnIndex(DBConstants.FEEDBACK_EMAIL)));
-//                    results.setFirballIp(c.getString(c.getColumnIndex(DBConstants.FIREBALL_IP)));
-//                    results.setFirballPort(c.getInt(c.getColumnIndex(DBConstants.FIREBALL_PORT)));
-//                    results.setAppMangaerAvail(c.getInt(c.getColumnIndex(DBConstants.IS_APPMANAGERAVAILABLE)) == 1 ? true : false);
-//                    results.setFirballAvail(c.getInt(c.getColumnIndex(DBConstants.IS_APPMANAGERAVAILABLE)) == 1 ? true : false);
-//                    results.setTimePerQuestion(c.getInt(c.getColumnIndex(DBConstants.TIME_PERQUESTION)));
-//                } while (c.moveToNext());
-//            }
-//            return results;
-//        } finally {
-//            if (db != null)
-//                db.close();
-//        }
-//    }
+    public void saveExpense(ExpenseDTO expenseDTODTO) {
+        SQLiteDatabase db = _dbHelper.getWritableDatabase();
+        try {
+            ContentValues values = new ContentValues();
+            values.put(DBConstants.CATEGORY, expenseDTODTO.getCategory());
+            values.put(DBConstants.DATE, expenseDTODTO.getDate());
+            values.put(DBConstants.AMOUNT, expenseDTODTO.getAmount());
+            values.put(DBConstants.DESCRIPTION, expenseDTODTO.getDescription());
+
+            // Inserting values to table
+            db.insert(DBConstants.TABLE_EXPENSE, "", values);
+        } finally {
+            if (db != null)
+                db.close();
+        }
+    }
+
+    public ArrayList<ExpenseDTO> getExpense() {
+        SQLiteDatabase db = _dbHelper.getReadableDatabase();
+        try {
+            ArrayList<ExpenseDTO> expenseDTOs = new ArrayList<ExpenseDTO>();
+            Cursor c = db.rawQuery("select * from " + DBConstants.TABLE_EXPENSE, null);
+            if (c.getCount() > 0) {
+                c.moveToFirst();
+                do {
+                    ExpenseDTO results = new ExpenseDTO();
+                    results.setCategory(c.getString(c.getColumnIndex(DBConstants.CATEGORY)));
+                    results.setDate(c.getString(c.getColumnIndex(DBConstants.DATE)));
+                    results.setAmount(c.getInt(c.getColumnIndex(DBConstants.AMOUNT)));
+                    results.setDescription(c.getString(c.getColumnIndex(DBConstants.DESCRIPTION)));
+                    expenseDTOs.add(results);
+                } while (c.moveToNext());
+            }
+            return expenseDTOs;
+        } finally {
+            if (db != null)
+                db.close();
+        }
+    }
 
     // public int UpdateSystemConfig() {
     // SQLiteDatabase db = _dbHelper.getWritableDatabase();

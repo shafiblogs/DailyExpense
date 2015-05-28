@@ -159,6 +159,7 @@ public class SlideMenu extends LinearLayout implements OnClickListener {
         slideContentLeftAnim = new TranslateAnimation(menuSize, 0, 0, 0);
         slideContentLeftAnim.setFillAfter(true);
         setAnimationDuration(slideDuration);
+        selectItem(0);
     }
 
     /**

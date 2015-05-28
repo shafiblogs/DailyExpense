@@ -10,21 +10,30 @@ public class DBConstants {
     final static String DROP_TABLE = "drop table ";
 
     // Table Names
-    final static String TABLE_SYSTEMCONFIG = "SystemConfig";
+    final static String TABLE_EXPENSE = "TableExpense";
+    final static String TABLE_INCOME = "TableIncome";
     final static String TABLE_ACCOUNT = "TableAccount";
 
     // Column Names
     final static String COLUMN_ID = "_id";
-    final static String CATEGORIES_VER = "CategoriesVer";
-    final static String FEEDBACK_EMAIL = "FeedbackEmail";
+    final static String CATEGORY = "_category";
+    final static String DATE = "_date";
+    final static String AMOUNT = "_amount";
+    final static String DESCRIPTION = "_description";
+
     final static String TRANS_ID = "TransID";
     final static String LANGUAGE_ID = "LanguageID";
     final static String TITLE = "Title";
 
-    // Table Queries
-    final static String CREATE_TABLE_SYSTEMCONFIG = CREATE_TABLE + TABLE_SYSTEMCONFIG + "(" + COLUMN_ID + " integer primary key autoincrement, "
-            + CATEGORIES_VER + " integer, " + FEEDBACK_EMAIL + " text); ";
-    final static String DROP_TABLE_SYSTEMCONFIG = DROP_TABLE.concat(TABLE_SYSTEMCONFIG).concat(";");
+    // Table Expense Queries
+    final static String CREATE_TABLE_EXPENSE = CREATE_TABLE + TABLE_EXPENSE + "(" + COLUMN_ID + " integer primary key autoincrement, "
+            + CATEGORY + " text, " + DATE + " text, " + AMOUNT + " integer, " + DESCRIPTION + " text); ";
+    final static String DROP_TABLE_EXPENSE = DROP_TABLE.concat(TABLE_EXPENSE).concat(";");
+    // Table Expense Queries
+    final static String CREATE_TABLE_INCOME = CREATE_TABLE + TABLE_INCOME + "(" + COLUMN_ID + " integer primary key autoincrement, "
+            + CATEGORY + " text, " + DATE + " text, " + AMOUNT + " integer, " + DESCRIPTION + " text); ";
+    final static String DROP_TABLE_INCOME = DROP_TABLE.concat(TABLE_INCOME).concat(";");
+    // Table Account Queries
     final static String CREATE_TABLE_ACCOUNT = CREATE_TABLE + TABLE_ACCOUNT + "(" + COLUMN_ID + " integer primary key autoincrement, "
             + TRANS_ID + " integer); ";
     final static String DROP_TABLE_ACCOUNT = DROP_TABLE.concat(TABLE_ACCOUNT).concat(";");

@@ -7,9 +7,12 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.de.activity.R;
+import com.de.adapter.ExpenseAdapter;
+import com.de.provider.DataLayer;
 
 /**
  * Created by Shafi on 5/27/2015.
@@ -20,6 +23,8 @@ public class ListFragment extends Fragment {
      * fragment.
      */
     private static final String ARG_SECTION_NUMBER = "section_number";
+    private ListView listView;
+    private DataLayer dataLayer;
 
     /**
      * Returns a new instance of this fragment for the given section
@@ -39,9 +44,14 @@ public class ListFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_home, container, false);
-        TextView tvTitle = (TextView) rootView.findViewById(R.id.tv_title);
-        tvTitle.setText("Screen" + getArguments().getInt(ARG_SECTION_NUMBER));
+        View rootView = inflater.inflate(R.layout.fragment_list, container, false);
+        listView = (ListView) rootView.findViewById(R.id.list_view);
+        dataLayer = new DataLayer(getActivity());
+        if (null != dataLayer.getExpense() && dataLayer.getExpense().size() > 0) {
+            ExpenseAdapter catAdapt = new ExpenseAdapter(getActivity(), dataLayer.getExpense());
+            listView.setAdapter(catAdapt);
+        }
+
         return rootView;
     }
 

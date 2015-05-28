@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.de.controller.OnFragmentResult;
+import com.de.fragment.ExpenseFragment;
 import com.de.fragment.ListFragment;
 import com.de.views.SlideMenu;
 import com.de.views.SlideMenuInterface;
@@ -26,12 +27,12 @@ public class HomeActivity extends ActionBarActivity implements SlideMenuInterfac
         setContentView(R.layout.activity_home);
         restoreActionBar();
 
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        setupDrawer();
         slideMenu = (SlideMenu) findViewById(R.id.slideMenu);
         slideMenu.init(this, 0, this, 333, this);
 
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 
-        setupDrawer();
     }
 
     public void restoreActionBar() {
@@ -69,7 +70,7 @@ public class HomeActivity extends ActionBarActivity implements SlideMenuInterfac
         switch (position) {
             case 0:
                 fragmentManager.beginTransaction()
-                        .replace(R.id.container, ListFragment.newInstance(position + 1))
+                        .replace(R.id.container, ExpenseFragment.newInstance(position + 1))
                         .commit();
                 break;
             case 1:
