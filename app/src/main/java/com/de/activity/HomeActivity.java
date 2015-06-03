@@ -11,6 +11,7 @@ import android.view.View;
 
 import com.de.controller.OnFragmentResult;
 import com.de.fragment.ExpenseFragment;
+import com.de.fragment.HomeFragment;
 import com.de.fragment.ListFragment;
 import com.de.views.SlideMenu;
 import com.de.views.SlideMenuInterface;
@@ -80,7 +81,7 @@ public class HomeActivity extends ActionBarActivity implements SlideMenuInterfac
                 break;
             case 2:
                 fragmentManager.beginTransaction()
-                        .replace(R.id.container, ListFragment.newInstance(position + 1))
+                        .replace(R.id.container, HomeFragment.newInstance(position + 1))
                         .commit();
                 break;
         }

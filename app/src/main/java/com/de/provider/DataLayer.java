@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import com.de.dto.CategoryDTO;
 import com.de.dto.ExpenseDTO;
 
 import java.util.ArrayList;
@@ -70,6 +71,44 @@ public class DataLayer {
         }
     }
 
+    public void saveCategory(CategoryDTO categoryDTO) {
+        SQLiteDatabase db = _dbHelper.getWritableDatabase();
+        try {
+            ContentValues values = new ContentValues();
+            values.put(DBConstants.CATEGORY_NAME, categoryDTO.getCategoryName());
+            values.put(DBConstants.INCOME_ORDER, categoryDTO.getIncomeOrder());
+            values.put(DBConstants.EXPENSE_ORDER, categoryDTO.getExpenseOrder());
+            values.put(DBConstants.CATEGORY_TYPE, categoryDTO.getCategoryType());
+            // Inserting values to table
+            db.insert(DBConstants.TABLE_CATEGORY, "", values);
+        } finally {
+            if (db != null)
+                db.close();
+        }
+    }
+
+    public ArrayList<CategoryDTO> getCategory(String categoryType) {
+        SQLiteDatabase db = _dbHelper.getReadableDatabase();
+        try {
+            ArrayList<CategoryDTO> expenseDTOs = new ArrayList<CategoryDTO>();
+            Cursor c = db.rawQuery("select * from " + DBConstants.TABLE_CATEGORY + " where " + DBConstants.CATEGORY_TYPE + " = " + categoryType, null);
+            if (c.getCount() > 0) {
+                c.moveToFirst();
+                do {
+                    CategoryDTO results = new CategoryDTO();
+                    results.setCategoryName(c.getString(c.getColumnIndex(DBConstants.CATEGORY_NAME)));
+                    results.setCategoryType(c.getString(c.getColumnIndex(DBConstants.CATEGORY_TYPE)));
+                    results.setExpenseOrder(c.getInt(c.getColumnIndex(DBConstants.EXPENSE_ORDER)));
+                    results.setIncomeOrder(c.getInt(c.getColumnIndex(DBConstants.INCOME_ORDER)));
+                    expenseDTOs.add(results);
+                } while (c.moveToNext());
+            }
+            return expenseDTOs;
+        } finally {
+            if (db != null)
+                db.close();
+        }
+    }
     // public int UpdateSystemConfig() {
     // SQLiteDatabase db = _dbHelper.getWritableDatabase();
     // try {

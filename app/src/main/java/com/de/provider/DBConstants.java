@@ -13,6 +13,7 @@ public class DBConstants {
     final static String TABLE_EXPENSE = "TableExpense";
     final static String TABLE_INCOME = "TableIncome";
     final static String TABLE_ACCOUNT = "TableAccount";
+    final static String TABLE_CATEGORY = "TableCategory";
 
     // Column Names
     final static String COLUMN_ID = "_id";
@@ -20,6 +21,11 @@ public class DBConstants {
     final static String DATE = "_date";
     final static String AMOUNT = "_amount";
     final static String DESCRIPTION = "_description";
+    final static String CATEGORY_NAME = "category_name";
+    final static String CATEGORY_TYPE = "category_type";
+    final static String EXPENSE_ORDER = "expense_order";
+    final static String INCOME_ORDER = "income_order";
+
 
     final static String TRANS_ID = "TransID";
     final static String LANGUAGE_ID = "LanguageID";
@@ -37,5 +43,8 @@ public class DBConstants {
     final static String CREATE_TABLE_ACCOUNT = CREATE_TABLE + TABLE_ACCOUNT + "(" + COLUMN_ID + " integer primary key autoincrement, "
             + TRANS_ID + " integer); ";
     final static String DROP_TABLE_ACCOUNT = DROP_TABLE.concat(TABLE_ACCOUNT).concat(";");
+    //Table Category Queries
+    final static String CREATE_TABLE_CATEGORY = CREATE_TABLE + TABLE_CATEGORY + "(" + COLUMN_ID + " integer primary key autoincrement, "
+            + CATEGORY_NAME + " text, " + CATEGORY_TYPE + " text, " + EXPENSE_ORDER + " integer, " + INCOME_ORDER + " integer); ";
+    final static String DROP_TABLE_CATEGORY = DROP_TABLE.concat(TABLE_CATEGORY).concat(";");
 }
-

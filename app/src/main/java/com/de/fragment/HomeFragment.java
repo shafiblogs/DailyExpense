@@ -1,11 +1,14 @@
 package com.de.fragment;
 
 import android.app.Activity;
-import android.app.Fragment;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.EditText;
 
 import com.de.activity.HomeActivity;
 import com.de.activity.R;
@@ -19,6 +22,9 @@ public class HomeFragment extends Fragment {
      * fragment.
      */
     private static final String ARG_SECTION_NUMBER = "section_number";
+    private EditText etCategoryName;
+    private CheckBox chkExpense, chkIncome;
+    private Button btnSave;
 
     /**
      * Returns a new instance of this fragment for the given section
@@ -39,7 +45,15 @@ public class HomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_home, container, false);
+        initializeViews(rootView);
         return rootView;
+    }
+
+    private void initializeViews(View rootView) {
+        etCategoryName = (EditText) rootView.findViewById(R.id.et_category_name);
+        chkExpense = (CheckBox) rootView.findViewById(R.id.ch_expense);
+        chkIncome = (CheckBox) rootView.findViewById(R.id.ch_income);
+        btnSave = (Button) rootView.findViewById(R.id.btn_save);
     }
 
     @Override

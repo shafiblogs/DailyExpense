@@ -17,6 +17,7 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL(DBConstants.CREATE_TABLE_EXPENSE);
         db.execSQL(DBConstants.CREATE_TABLE_INCOME);
         db.execSQL(DBConstants.CREATE_TABLE_ACCOUNT);
+        db.execSQL(DBConstants.CREATE_TABLE_CATEGORY);
     }
 
     @Override
@@ -25,10 +26,12 @@ public class DBHelper extends SQLiteOpenHelper {
             db.execSQL(DBConstants.DROP_TABLE_EXPENSE);
             db.execSQL(DBConstants.DROP_TABLE_INCOME);
             db.execSQL(DBConstants.DROP_TABLE_ACCOUNT);
+            db.execSQL(DBConstants.DROP_TABLE_CATEGORY);
 
             db.execSQL(DBConstants.CREATE_TABLE_EXPENSE);
             db.execSQL(DBConstants.CREATE_TABLE_INCOME);
             db.execSQL(DBConstants.CREATE_TABLE_ACCOUNT);
+            db.execSQL(DBConstants.CREATE_TABLE_CATEGORY);
 
         }
     }
