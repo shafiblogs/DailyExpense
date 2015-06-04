@@ -31,15 +31,17 @@ public class ReportAdapter extends BaseAdapter {
     public View getView(int itemPos, View convertView, ViewGroup arg2) {
         if (convertView == null) {
             LayoutInflater layoutInflater = (LayoutInflater) this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = layoutInflater.inflate(R.layout.item_expense, null);
+            convertView = layoutInflater.inflate(R.layout.item_report, null);
         }
         ReportDTO expenseDTO = expenseDTOs.get(itemPos);
         TextView tvCategory = (TextView) convertView.findViewById(R.id.tv_category);
         TextView tvDate = (TextView) convertView.findViewById(R.id.tv_date);
         TextView tvAmount = (TextView) convertView.findViewById(R.id.tv_amount);
+        TextView tvDescription = (TextView) convertView.findViewById(R.id.tv_description);
         tvCategory.setText(expenseDTO.getCategory());
         tvDate.setText(expenseDTO.getDate());
         tvAmount.setText("" + expenseDTO.getAmount());
+        tvDescription.setText(expenseDTO.getDescription());
 
         return convertView;
     }
