@@ -54,6 +54,27 @@ public class ExpenseFragment extends Fragment {
     }
 
     @Override
+    public void onPause() {
+        super.onPause();
+
+        ArrayList<CategoryDTO> categoryList = null;
+        if (fragmentType == 0)
+            categoryList = dataLayer.getCategory("E");
+        else if (fragmentType == 1)
+            categoryList = dataLayer.getCategory("I");
+
+
+        ArrayAdapter<String> adapter;
+        List<String> list;
+
+        list = new ArrayList<String>();
+        for (CategoryDTO categoryDTO : categoryList) {
+            list.add(categoryDTO.getCategoryName());
+        }
+
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_expense, container, false);
@@ -68,6 +89,7 @@ public class ExpenseFragment extends Fragment {
         etAmount = (EditText) rootView.findViewById(R.id.et_amount);
         etDescription = (EditText) rootView.findViewById(R.id.et_description);
         spCategory = (Spinner) rootView.findViewById(R.id.sp_category);
+
         ArrayList<CategoryDTO> categoryList = null;
         if (fragmentType == 0)
             categoryList = dataLayer.getCategory("E");
@@ -87,6 +109,7 @@ public class ExpenseFragment extends Fragment {
                 android.R.layout.simple_spinner_item, list);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spCategory.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
 
         Calendar c = Calendar.getInstance();
         SimpleDateFormat df = new SimpleDateFormat("dd MMM yyyy HH:mm:ss");
@@ -113,6 +136,14 @@ public class ExpenseFragment extends Fragment {
                 } else {
                     Toast.makeText(getActivity(), "Fill all fields", Toast.LENGTH_LONG).show();
                 }
+            }
+        });
+
+        ((Button) rootView.findViewById(R.id.btn_add)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CategoryDialog categoryDialog = new CategoryDialog();
+                categoryDialog.show(getActivity().getFragmentManager(), "category");
             }
         });
     }

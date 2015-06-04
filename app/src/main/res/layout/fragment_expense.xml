@@ -15,6 +15,15 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"></Spinner>
 
+        <Button
+            android:id="@+id/btn_add"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/sp_category"
+            android:layout_toRightOf="@+id/sp_category"
+
+            android:text="Add" />
+
         <TextView
             android:id="@+id/tv_amount"
             android:layout_width="wrap_content"
