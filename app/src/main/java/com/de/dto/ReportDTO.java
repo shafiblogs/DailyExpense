@@ -3,16 +3,16 @@ package com.de.dto;
 /**
  * Created by Shafi on 5/28/2015.
  */
-public class ExpenseDTO {
+public class ReportDTO {
     private int amount;
     private String date;
     private String category;
     private String description;
 
-    public ExpenseDTO() {
+    public ReportDTO() {
     }
 
-    public ExpenseDTO(String category, String date, int amount, String description) {
+    public ReportDTO(String category, String date, int amount, String description) {
         this.category = category;
         this.date = date;
         this.amount = amount;

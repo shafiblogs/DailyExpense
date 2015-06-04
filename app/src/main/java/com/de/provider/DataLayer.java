@@ -6,7 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.de.dto.CategoryDTO;
-import com.de.dto.ExpenseDTO;
+import com.de.dto.ReportDTO;
 
 import java.util.ArrayList;
 
@@ -31,7 +31,7 @@ public class DataLayer {
         }
     }
 
-    public void saveExpense(ExpenseDTO expenseDTODTO) {
+    public void saveExpense(ReportDTO expenseDTODTO) {
         SQLiteDatabase db = _dbHelper.getWritableDatabase();
         try {
             ContentValues values = new ContentValues();
@@ -48,15 +48,55 @@ public class DataLayer {
         }
     }
 
-    public ArrayList<ExpenseDTO> getExpense() {
+    public ArrayList<ReportDTO> getExpense() {
         SQLiteDatabase db = _dbHelper.getReadableDatabase();
         try {
-            ArrayList<ExpenseDTO> expenseDTOs = new ArrayList<ExpenseDTO>();
+            ArrayList<ReportDTO> expenseDTOs = new ArrayList<ReportDTO>();
             Cursor c = db.rawQuery("select * from " + DBConstants.TABLE_EXPENSE, null);
             if (c.getCount() > 0) {
                 c.moveToFirst();
                 do {
-                    ExpenseDTO results = new ExpenseDTO();
+                    ReportDTO results = new ReportDTO();
+                    results.setCategory(c.getString(c.getColumnIndex(DBConstants.CATEGORY)));
+                    results.setDate(c.getString(c.getColumnIndex(DBConstants.DATE)));
+                    results.setAmount(c.getInt(c.getColumnIndex(DBConstants.AMOUNT)));
+                    results.setDescription(c.getString(c.getColumnIndex(DBConstants.DESCRIPTION)));
+                    expenseDTOs.add(results);
+                } while (c.moveToNext());
+            }
+            return expenseDTOs;
+        } finally {
+            if (db != null)
+                db.close();
+        }
+    }
+
+    public void saveIncome(ReportDTO expenseDTODTO) {
+        SQLiteDatabase db = _dbHelper.getWritableDatabase();
+        try {
+            ContentValues values = new ContentValues();
+            values.put(DBConstants.CATEGORY, expenseDTODTO.getCategory());
+            values.put(DBConstants.DATE, expenseDTODTO.getDate());
+            values.put(DBConstants.AMOUNT, expenseDTODTO.getAmount());
+            values.put(DBConstants.DESCRIPTION, expenseDTODTO.getDescription());
+
+            // Inserting values to table
+            db.insert(DBConstants.TABLE_INCOME, "", values);
+        } finally {
+            if (db != null)
+                db.close();
+        }
+    }
+
+    public ArrayList<ReportDTO> getIncome() {
+        SQLiteDatabase db = _dbHelper.getReadableDatabase();
+        try {
+            ArrayList<ReportDTO> expenseDTOs = new ArrayList<ReportDTO>();
+            Cursor c = db.rawQuery("select * from " + DBConstants.TABLE_INCOME, null);
+            if (c.getCount() > 0) {
+                c.moveToFirst();
+                do {
+                    ReportDTO results = new ReportDTO();
                     results.setCategory(c.getString(c.getColumnIndex(DBConstants.CATEGORY)));
                     results.setDate(c.getString(c.getColumnIndex(DBConstants.DATE)));
                     results.setAmount(c.getInt(c.getColumnIndex(DBConstants.AMOUNT)));
@@ -91,7 +131,8 @@ public class DataLayer {
         SQLiteDatabase db = _dbHelper.getReadableDatabase();
         try {
             ArrayList<CategoryDTO> expenseDTOs = new ArrayList<CategoryDTO>();
-            Cursor c = db.rawQuery("select * from " + DBConstants.TABLE_CATEGORY + " where " + DBConstants.CATEGORY_TYPE + " = " + categoryType, null);
+            Cursor c = db.rawQuery("select * from " + DBConstants.TABLE_CATEGORY + " where " + DBConstants.CATEGORY_TYPE + " IN ('B', " + "'" + categoryType + "')", null);
+
             if (c.getCount() > 0) {
                 c.moveToFirst();
                 do {

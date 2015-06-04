@@ -1,17 +1,15 @@
 package com.de.fragment;
 
 import android.app.Activity;
-
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import com.de.activity.R;
-import com.de.adapter.ExpenseAdapter;
+import com.de.adapter.ReportAdapter;
 import com.de.provider.DataLayer;
 
 /**
@@ -25,6 +23,7 @@ public class ListFragment extends Fragment {
     private static final String ARG_SECTION_NUMBER = "section_number";
     private ListView listView;
     private DataLayer dataLayer;
+    private int fragmentType = 0;
 
     /**
      * Returns a new instance of this fragment for the given section
@@ -47,8 +46,12 @@ public class ListFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_list, container, false);
         listView = (ListView) rootView.findViewById(R.id.list_view);
         dataLayer = new DataLayer(getActivity());
-        if (null != dataLayer.getExpense() && dataLayer.getExpense().size() > 0) {
-            ExpenseAdapter catAdapt = new ExpenseAdapter(getActivity(), dataLayer.getExpense());
+        fragmentType = getArguments().getInt(ARG_SECTION_NUMBER, 0);
+        if (fragmentType == 0 && null != dataLayer.getExpense() && dataLayer.getExpense().size() > 0) {
+            ReportAdapter catAdapt = new ReportAdapter(getActivity(), dataLayer.getExpense());
+            listView.setAdapter(catAdapt);
+        } else if (fragmentType == 1 && null != dataLayer.getIncome() && dataLayer.getIncome().size() > 0) {
+            ReportAdapter catAdapt = new ReportAdapter(getActivity(), dataLayer.getIncome());
             listView.setAdapter(catAdapt);
         }
 

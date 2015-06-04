@@ -14,8 +14,10 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.de.activity.R;
-import com.de.dto.ExpenseDTO;
+import com.de.dto.CategoryDTO;
+import com.de.dto.ReportDTO;
 import com.de.provider.DataLayer;
+import com.de.utils.StringUtils;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -34,6 +36,7 @@ public class ExpenseFragment extends Fragment {
     private EditText etAmount, etDescription;
     private Spinner spCategory;
     private DataLayer dataLayer;
+    private int fragmentType = 0;
 
     /**
      * Returns a new instance of this fragment for the given section
@@ -54,8 +57,9 @@ public class ExpenseFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_expense, container, false);
-        initializeViews(rootView);
         dataLayer = new DataLayer(getActivity());
+        fragmentType = getArguments().getInt(ARG_SECTION_NUMBER, 0);
+        initializeViews(rootView);
 
         return rootView;
     }
@@ -64,17 +68,21 @@ public class ExpenseFragment extends Fragment {
         etAmount = (EditText) rootView.findViewById(R.id.et_amount);
         etDescription = (EditText) rootView.findViewById(R.id.et_description);
         spCategory = (Spinner) rootView.findViewById(R.id.sp_category);
+        ArrayList<CategoryDTO> categoryList = null;
+        if (fragmentType == 0)
+            categoryList = dataLayer.getCategory("E");
+        else if (fragmentType == 1)
+            categoryList = dataLayer.getCategory("I");
+
 
         ArrayAdapter<String> adapter;
         List<String> list;
 
         list = new ArrayList<String>();
-        list.add("Select Category");
-        list.add("Rent");
-        list.add("Food");
-        list.add("Recharge");
-        list.add("Metro");
-        list.add("Purchase");
+        for (CategoryDTO categoryDTO : categoryList) {
+            list.add(categoryDTO.getCategoryName());
+        }
+
         adapter = new ArrayAdapter<String>(getActivity(),
                 android.R.layout.simple_spinner_item, list);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -82,18 +90,29 @@ public class ExpenseFragment extends Fragment {
 
         Calendar c = Calendar.getInstance();
         SimpleDateFormat df = new SimpleDateFormat("dd MMM yyyy HH:mm:ss");
-        final String asGmt = df.format(c.getTime()) + " GMT";
+        final String asGmt = df.format(c.getTime());
 
         ((Button) rootView.findViewById(R.id.btn_save)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ExpenseDTO expenseDTO = new ExpenseDTO(spCategory.getSelectedItem().toString(), asGmt, 1, etDescription.getText().toString());
-                Toast.makeText(getActivity(), "Saved", Toast.LENGTH_LONG).show();
-                dataLayer.saveExpense(expenseDTO);
+                String amount = etAmount.getText().toString().trim();
+                String category = spCategory.getSelectedItem().toString().trim();
+                String description = etDescription.getText().toString().trim();
+                if (StringUtils.isNotBlank(amount) && StringUtils.isNotBlank(description)) {
+                    ReportDTO expenseDTO = new ReportDTO(category, asGmt, Integer.parseInt(amount), description);
+                    if (fragmentType == 0)
+                        dataLayer.saveExpense(expenseDTO);
+                    else if (fragmentType == 1)
+                        dataLayer.saveIncome(expenseDTO);
 
-                etAmount.setText("");
-                etDescription.setText("");
-                spCategory.setSelection(0);
+                    Toast.makeText(getActivity(), "Saved", Toast.LENGTH_LONG).show();
+
+                    etAmount.setText("");
+                    etDescription.setText("");
+                    spCategory.setSelection(0);
+                } else {
+                    Toast.makeText(getActivity(), "Fill all fields", Toast.LENGTH_LONG).show();
+                }
             }
         });
     }

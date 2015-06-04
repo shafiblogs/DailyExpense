@@ -8,19 +8,19 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.de.activity.R;
-import com.de.dto.ExpenseDTO;
+import com.de.dto.ReportDTO;
 
 import java.util.ArrayList;
 
 /**
  * Created by Shafi on 5/28/2015.
  */
-public class ExpenseAdapter extends BaseAdapter {
+public class ReportAdapter extends BaseAdapter {
     private Context context;
-    private ArrayList<ExpenseDTO> expenseDTOs;
+    private ArrayList<ReportDTO> expenseDTOs;
     private int languageId;
 
-    public ExpenseAdapter(Context context, ArrayList<ExpenseDTO> expenseDTOs) {
+    public ReportAdapter(Context context, ArrayList<ReportDTO> expenseDTOs) {
         this.context = context;
         this.expenseDTOs = expenseDTOs;
         this.languageId = languageId;
@@ -33,7 +33,7 @@ public class ExpenseAdapter extends BaseAdapter {
             LayoutInflater layoutInflater = (LayoutInflater) this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = layoutInflater.inflate(R.layout.item_expense, null);
         }
-        ExpenseDTO expenseDTO = expenseDTOs.get(itemPos);
+        ReportDTO expenseDTO = expenseDTOs.get(itemPos);
         TextView tvCategory = (TextView) convertView.findViewById(R.id.tv_category);
         TextView tvDate = (TextView) convertView.findViewById(R.id.tv_date);
         TextView tvAmount = (TextView) convertView.findViewById(R.id.tv_amount);
