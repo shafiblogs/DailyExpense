@@ -3,72 +3,64 @@ package com.de.fragment;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 
 import com.de.activity.R;
-
-import java.util.Locale;
+import com.de.adapter.ReportAdapter;
+import com.de.provider.DataLayer;
 
 /**
- * Created by Shafi on 6/4/2015.
+ * Created by Shafi on 5/27/2015.
  */
 public class ReportFragment extends Fragment {
-    private SectionsPagerAdapter mSectionsPagerAdapter;
-    private ViewPager mViewPager;
-    private View view;
-    private FragmentActivity myContext;
+    /**
+     * The fragment argument representing the section number for this
+     * fragment.
+     */
+    private static final String ARG_SECTION_NUMBER = "section_number";
+    private ListView listView;
+    private DataLayer dataLayer;
+    private int fragmentType = 0;
+
+    /**
+     * Returns a new instance of this fragment for the given section
+     * number.
+     */
+    public static ReportFragment newInstance(int sectionNumber) {
+        ReportFragment fragment = new ReportFragment();
+        Bundle args = new Bundle();
+        args.putInt(ARG_SECTION_NUMBER, sectionNumber);
+        fragment.setArguments(args);
+        return fragment;
+    }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // TODO Auto-generated method stub
-        view = inflater.inflate(R.layout.layout_viewpager, container, false);
-        mSectionsPagerAdapter = new SectionsPagerAdapter(getChildFragmentManager());
-        mViewPager = (ViewPager) view.findViewById(R.id.pager);
-        mViewPager.setAdapter(mSectionsPagerAdapter);
-        return view;
+        View rootView = inflater.inflate(R.layout.fragment_list, container, false);
+        listView = (ListView) rootView.findViewById(R.id.list_view);
+        dataLayer = new DataLayer(getActivity());
+        fragmentType = getArguments().getInt(ARG_SECTION_NUMBER, 0);
+        if (fragmentType == 0 && null != dataLayer.getExpense() && dataLayer.getExpense().size() > 0) {
+            ReportAdapter catAdapt = new ReportAdapter(getActivity(), dataLayer.getExpense());
+            listView.setAdapter(catAdapt);
+        } else if (fragmentType == 1 && null != dataLayer.getIncome() && dataLayer.getIncome().size() > 0) {
+            ReportAdapter catAdapt = new ReportAdapter(getActivity(), dataLayer.getIncome());
+            listView.setAdapter(catAdapt);
+        }
+
+        return rootView;
     }
 
     @Override
     public void onAttach(Activity activity) {
-        myContext = (FragmentActivity) activity;
         super.onAttach(activity);
-    }
-
-    public class SectionsPagerAdapter extends FragmentPagerAdapter {
-
-        public SectionsPagerAdapter(FragmentManager fm) {
-            super(fm);
-        }
-
-        @Override
-        public Fragment getItem(int position) {
-            return ListFragment.newInstance(position);
-        }
-
-        @Override
-        public int getCount() {
-            return 2;
-        }
-
-        @Override
-        public CharSequence getPageTitle(int position) {
-            Locale l = Locale.getDefault();
-            switch (position) {
-                case 0:
-                    return ("Expense").toUpperCase(l);
-                case 1:
-                    return ("Income").toUpperCase(l);
-
-            }
-            return null;
-        }
+//        ((HomeActivity) activity).onSectionAttached(
+//                getArguments().getInt(ARG_SECTION_NUMBER));
     }
 
 }

@@ -21,8 +21,9 @@
             android:layout_height="wrap_content"
             android:layout_alignBaseline="@+id/sp_category"
             android:layout_toRightOf="@+id/sp_category"
+            android:background="@drawable/add"
 
-            android:text="Add" />
+            />
 
         <TextView
             android:id="@+id/tv_amount"

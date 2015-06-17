@@ -10,9 +10,9 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.de.controller.OnFragmentResult;
+import com.de.fragment.ControllerFragment;
 import com.de.fragment.EntryFragment;
 import com.de.fragment.HomeFragment;
-import com.de.fragment.ReportFragment;
 import com.de.views.SlideMenu;
 import com.de.views.SlideMenuInterface;
 
@@ -71,12 +71,12 @@ public class HomeActivity extends ActionBarActivity implements SlideMenuInterfac
         switch (position) {
             case 0:
                 fragmentManager.beginTransaction()
-                        .replace(R.id.container, new EntryFragment())
+                        .replace(R.id.container, ControllerFragment.newInstance(position))
                         .commit();
                 break;
             case 1:
                 fragmentManager.beginTransaction()
-                        .replace(R.id.container, new ReportFragment())
+                        .replace(R.id.container, ControllerFragment.newInstance(position))
                         .commit();
                 break;
             case 2:

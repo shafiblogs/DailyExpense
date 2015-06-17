@@ -11,6 +11,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.de.activity.R;
+import com.de.controller.OnFragmentResult;
 import com.de.dto.CategoryDTO;
 import com.de.provider.DataLayer;
 import com.de.utils.StringUtils;
@@ -21,29 +22,39 @@ import com.de.utils.StringUtils;
 public class CategoryDialog extends DialogFragment {
     private EditText etCategoryName;
     private CheckBox chkExpense, chkIncome;
-    private Button btnSave;
+    private OnFragmentResult onFragmentResult;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_home, container,
+        View rootView = inflater.inflate(R.layout.dialog_category, container,
                 false);
+        //getDialog().setTitle("Add new category here");
+        getDialog().requestWindowFeature(STYLE_NO_TITLE);
+        setCancelable(false);
         initializeViews(rootView);
-        getDialog().setTitle("Add new category here");
-        // Do something else
         return rootView;
+    }
+
+    public void setCallBack(OnFragmentResult fragmentResult) {
+        this.onFragmentResult = fragmentResult;
     }
 
     private void initializeViews(View rootView) {
         etCategoryName = (EditText) rootView.findViewById(R.id.et_category_name);
         chkExpense = (CheckBox) rootView.findViewById(R.id.ch_expense);
         chkIncome = (CheckBox) rootView.findViewById(R.id.ch_income);
-        btnSave = (Button) rootView.findViewById(R.id.btn_save);
 
-        btnSave.setOnClickListener(new View.OnClickListener() {
+        ((Button) rootView.findViewById(R.id.btn_save)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 saveCategoryDetails();
+            }
+        });
+        ((Button) rootView.findViewById(R.id.btn_cancel)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getDialog().dismiss();
             }
         });
     }
@@ -66,8 +77,9 @@ public class CategoryDialog extends DialogFragment {
             categoryDTO.setIncomeOrder(0);
             DataLayer dataLayer = new DataLayer(getActivity());
             dataLayer.saveCategory(categoryDTO);
+            onFragmentResult.onFragmentResult("item");
             Toast.makeText(getActivity(), "Added successfully", Toast.LENGTH_LONG).show();
-            this.dismiss();
+            getDialog().dismiss();
         } else {
             Toast.makeText(getActivity(), "Please fill fields", Toast.LENGTH_LONG).show();
         }

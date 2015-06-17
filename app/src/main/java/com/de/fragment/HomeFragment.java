@@ -11,7 +11,6 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.de.activity.HomeActivity;
 import com.de.activity.R;
 import com.de.dto.CategoryDTO;
 import com.de.provider.DataLayer;
@@ -48,7 +47,7 @@ public class HomeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_home, container, false);
+        View rootView = inflater.inflate(R.layout.dialog_category, container, false);
         initializeViews(rootView);
         return rootView;
     }
