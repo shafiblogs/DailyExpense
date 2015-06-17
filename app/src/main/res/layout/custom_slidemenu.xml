@@ -9,17 +9,16 @@
         android:id="@+id/cont_custom_slide_menu"
         android:layout_width="@dimen/slide_menu_width"
         android:layout_height="match_parent"
-        android:background="@android:color/holo_red_dark"
         android:orientation="vertical">
 
         <TextView
             android:id="@+id/tv_first"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_xlarge"
+            android:layout_marginTop="@dimen/margin_normal"
             android:padding="@dimen/margin_xlarge"
             android:text="Expense"
-            android:textColor="@android:color/white" />
+            android:textColor="@android:color/holo_blue_dark" />
 
         <TextView
             android:id="@+id/tv_second"
@@ -27,7 +26,7 @@
             android:layout_height="wrap_content"
             android:padding="@dimen/margin_xlarge"
             android:text="Report"
-            android:textColor="@android:color/white" />
+            android:textColor="@android:color/holo_blue_dark" />
 
         <TextView
             android:id="@+id/tv_third"
@@ -35,7 +34,7 @@
             android:layout_height="wrap_content"
             android:padding="@dimen/margin_xlarge"
             android:text="Category"
-            android:textColor="@android:color/white" />
+            android:textColor="@android:color/holo_blue_dark" />
     </LinearLayout>
 
     <FrameLayout

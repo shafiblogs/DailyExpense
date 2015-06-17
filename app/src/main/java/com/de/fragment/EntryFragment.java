@@ -78,7 +78,7 @@ public class EntryFragment extends Fragment implements OnFragmentResult {
         fragmentType = getArguments().getInt(ARG_SECTION_NUMBER, 0);
 
         Calendar c = Calendar.getInstance();
-        SimpleDateFormat df = new SimpleDateFormat("dd MMM yyyy HH:mm:ss");
+        SimpleDateFormat df = new SimpleDateFormat("dd MMM");
         todayString = df.format(c.getTime());
 
         ((Button) rootView.findViewById(R.id.btn_save)).setOnClickListener(new View.OnClickListener() {

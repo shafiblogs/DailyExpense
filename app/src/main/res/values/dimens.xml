@@ -4,7 +4,7 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
 
     <!-- Screen Sizes -->
-    <dimen name="slide_menu_width">250dp</dimen>
+    <dimen name="slide_menu_width">150dp</dimen>
     <dimen name="margin_space1">1dp</dimen>
     <dimen name="margin_space2">2dp</dimen>
     <dimen name="margin_tiny">4dp</dimen>
