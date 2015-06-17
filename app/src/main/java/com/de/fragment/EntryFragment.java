@@ -134,8 +134,10 @@ public class EntryFragment extends Fragment implements OnFragmentResult {
     }
 
     private void saveEntryToDB() {
+        String category = null;
+        if (list.size() > 0)
+            category = spCategory.getSelectedItem().toString().trim();
         String amount = etAmount.getText().toString().trim();
-        String category = spCategory.getSelectedItem().toString().trim();
         String description = etDescription.getText().toString().trim();
         if (StringUtils.isNotBlank(amount) && StringUtils.isNotBlank(description)) {
             ReportDTO expenseDTO = new ReportDTO(category, todayString, Integer.parseInt(amount), description);
@@ -144,13 +146,13 @@ public class EntryFragment extends Fragment implements OnFragmentResult {
             else if (fragmentType == 1)
                 dataLayer.saveIncome(expenseDTO);
 
-            Toast.makeText(getActivity(), "Saved", Toast.LENGTH_LONG).show();
+            Toast.makeText(getActivity(), "Entry has been saved successfully", Toast.LENGTH_LONG).show();
 
             etAmount.setText("");
             etDescription.setText("");
             spCategory.setSelection(0);
         } else {
-            Toast.makeText(getActivity(), "Fill all fields", Toast.LENGTH_LONG).show();
+            Toast.makeText(getActivity(), "Please fill all required fields", Toast.LENGTH_LONG).show();
         }
     }
 
