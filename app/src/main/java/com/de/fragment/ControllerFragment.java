@@ -64,10 +64,13 @@ public class ControllerFragment extends Fragment {
         @Override
         public Fragment getItem(int position) {
             Fragment fragment = null;
+
             if (fragmentType == 0)
                 fragment = EntryFragment.newInstance(position, mViewPager);
             else if (fragmentType == 1)
                 fragment = ReportFragment.newInstance(position);
+            else if (fragmentType == 2)
+                fragment = CategoryFragment.newInstance(position);
             return fragment;
         }
 

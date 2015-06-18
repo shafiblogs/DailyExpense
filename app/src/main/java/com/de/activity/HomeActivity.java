@@ -1,7 +1,6 @@
 package com.de.activity;
 
 import android.os.Bundle;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
@@ -11,8 +10,6 @@ import android.view.View;
 
 import com.de.controller.OnFragmentResult;
 import com.de.fragment.ControllerFragment;
-import com.de.fragment.EntryFragment;
-import com.de.fragment.HomeFragment;
 import com.de.views.SlideMenu;
 import com.de.views.SlideMenuInterface;
 
@@ -66,25 +63,9 @@ public class HomeActivity extends ActionBarActivity implements SlideMenuInterfac
 
     @Override
     public void onSlideMenuItemClick(int position) {
-        FragmentManager fragmentManager = getSupportFragmentManager();
-
-        switch (position) {
-            case 0:
-                fragmentManager.beginTransaction()
-                        .replace(R.id.container, ControllerFragment.newInstance(position))
-                        .commit();
-                break;
-            case 1:
-                fragmentManager.beginTransaction()
-                        .replace(R.id.container, ControllerFragment.newInstance(position))
-                        .commit();
-                break;
-            case 2:
-                fragmentManager.beginTransaction()
-                        .replace(R.id.container, HomeFragment.newInstance(position + 1))
-                        .commit();
-                break;
-        }
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.container, ControllerFragment.newInstance(position))
+                .commit();
     }
 
     @Override

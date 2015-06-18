@@ -221,7 +221,7 @@ public class SlideMenu extends LinearLayout implements OnClickListener {
             getStatusbarHeight();
         }
 
-        // modify content layout params
+        // modify content item_category params
         try {
             content = ((LinearLayout) act.findViewById(android.R.id.content).getParent());
         } catch (ClassCastException e) {
